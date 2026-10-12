@@ -1,0 +1,111 @@
+---
+import { home } from "../content/home";
+
+const { newsletter } = home;
+---
+
+<section
+  class="newsletter"
+  id="newsletter"
+  style={`--newsletter-bg: url(${newsletter.background})`}
+>
+  <div class="newsletter__inner container">
+    <div class="newsletter__copy">
+      <h6 class="section-label">{newsletter.label}</h6>
+      <h2 class="newsletter__title">{newsletter.title}</h2>
+      <p set:html={newsletter.textHtml} />
+    </div>
+    <form
+      class="newsletter__form"
+      data-local-form
+      data-success="Grazie! La tua iscrizione di esempio è stata registrata."
+    >
+      <label class="sr-only" for="newsletter-email">Email</label>
+      <input id="newsletter-email" name="email" type="email" placeholder="Email" required />
+      <button class="btn btn--dark" type="submit">{newsletter.ctaLabel}</button>
+      <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .newsletter {
+    padding-block: 25px;
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      var(--newsletter-bg) center / cover;
+    color: var(--color-white);
+  }
+
+  .newsletter__inner {
+    display: grid;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .newsletter .section-label {
+    font-size: 14px;
+    color: var(--color-white);
+  }
+
+  .newsletter__title {
+    margin: 12px 0 8px;
+    font-size: 27px;
+    color: var(--color-white);
+  }
+
+  .newsletter__copy p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .newsletter__form {
+    display: grid;
+    gap: 10px;
+  }
+
+  .newsletter__form input {
+    min-height: 40px;
+    padding: 6px 16px;
+    border: 1px solid #69727d;
+    border-radius: 0;
+    background: var(--color-white);
+    color: var(--color-black);
+    font-size: 15px;
+  }
+
+  .newsletter__form .btn {
+    min-height: 40px;
+    padding: 0 24px;
+  }
+
+  @media (min-width: 768px) {
+    .newsletter__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding-inline: 10px;
+    }
+
+    .newsletter .section-label {
+      font-size: 18px;
+    }
+
+    .newsletter__title {
+      font-size: 40px;
+    }
+
+    .newsletter__copy p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .newsletter__form {
+      grid-template-columns: 1fr 158px;
+    }
+
+    .newsletter__form .form-status {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

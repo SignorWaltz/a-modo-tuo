@@ -1,0 +1,317 @@
+---
+import Carousel from "./Carousel.astro";
+import Icon from "./Icon.astro";
+import { home } from "../content/home";
+import { site } from "../content/site";
+
+interface Props {
+  variant?: "band" | "page";
+}
+
+const { variant = "band" } = Astro.props;
+const { contactBand } = home;
+const isBand = variant === "band";
+
+const items = [
+  { icon: "building" as const, title: "Indirizzo", text: site.address },
+  { icon: "phone-volume" as const, title: "Telefono", text: site.phoneDisplay, href: `tel:${site.phone.replace(/\s/g, "")}` },
+  { icon: "envelope-open" as const, title: "Email", text: site.email, href: `mailto:${site.email}` },
+];
+---
+
+<section
+  class:list={["contact-band", `contact-band--${variant}`]}
+  style={isBand ? `--band-bg: url(${contactBand.background})` : undefined}
+>
+  <div class="container">
+    <div class="contact-band__intro">
+      {
+        isBand ? (
+          <>
+            <h6 class="section-label">{contactBand.label}</h6>
+            <h2 class="contact-band__title">{contactBand.title}</h2>
+          </>
+        ) : (
+          <h6 class="section-label">
+            {contactBand.title} {contactBand.label}
+          </h6>
+        )
+      }
+      <span class="contact-band__divider" aria-hidden="true"></span>
+    </div>
+
+    {
+      isBand && (
+        <Carousel
+          class="contact-band__gallery"
+          images={contactBand.gallery}
+          alt="Il negozio"
+          perView={2}
+          perViewMobile={1.2}
+          height="372px"
+          heightMobile="240px"
+          autoplay={2000}
+        />
+      )
+    }
+
+    <div class="contact-band__row">
+      <aside class="contact-band__social" aria-label="Social">
+        <a href={site.social.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"><Icon name="facebook" /></a>
+        <a href={site.social.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><Icon name="instagram" /></a>
+      </aside>
+
+      <div class="contact-band__card">
+        <h2 class="contact-band__card-title">Contatti</h2>
+        <ul>
+          {
+            items.map((item) => (
+              <li>
+                <span class="contact-band__icon">
+                  <Icon name={item.icon} />
+                </span>
+                <div>
+                  <h4>{item.title}</h4>
+                  {item.href ? <a href={item.href}>{item.text}</a> : <p>{item.text}</p>}
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="contact-band__map">
+        <iframe
+          title={site.address}
+          src={site.mapEmbedUrl}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-band {
+    padding-block: 40px 0;
+  }
+
+  .contact-band--band {
+    color: var(--color-white);
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.13), rgba(0, 0, 0, 0.13)),
+      var(--band-bg) center / cover;
+  }
+
+  .contact-band--page {
+    padding-block: 25px 0;
+    background: var(--color-white);
+  }
+
+  .contact-band__intro {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .contact-band--band .section-label {
+    color: var(--color-white);
+  }
+
+  .contact-band--page .section-label {
+    color: var(--color-black);
+    font-size: 16px;
+  }
+
+  .contact-band__title {
+    font-size: 38px;
+    color: var(--color-white);
+  }
+
+  .contact-band__divider {
+    display: block;
+    width: 2px;
+    height: 10px;
+    margin-top: 10px;
+    background: var(--color-white);
+  }
+
+  .contact-band--page .contact-band__divider {
+    background: var(--color-black);
+  }
+
+  .contact-band__row {
+    display: grid;
+    margin-top: 30px;
+  }
+
+  .contact-band__social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 34px;
+    min-height: 70px;
+    margin-inline: -30px;
+    background: var(--color-black);
+    color: var(--color-white);
+  }
+
+  .contact-band__social a {
+    display: grid;
+    place-items: center;
+  }
+
+  .contact-band__social :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .contact-band__card {
+    position: relative;
+    z-index: 1;
+    margin-inline: -30px;
+    padding: 20px 20px 25px;
+    border-radius: 5px;
+    background: var(--color-white);
+    box-shadow: 0 0 20px rgba(33, 33, 33, 0.25);
+    color: var(--color-black);
+    text-align: center;
+  }
+
+  .contact-band__card-title {
+    margin-bottom: 20px;
+    font-size: 33px;
+  }
+
+  .contact-band__card ul {
+    display: grid;
+    gap: 20px;
+  }
+
+  .contact-band__card li {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+  }
+
+  .contact-band__icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--color-black);
+    color: var(--color-white);
+  }
+
+  .contact-band__icon :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .contact-band__card h4 {
+    margin-bottom: 6px;
+    font-size: 17px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .contact-band__card p,
+  .contact-band__card a {
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .contact-band__map {
+    margin-block: 30px 60px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .contact-band__map iframe {
+    display: block;
+    width: 100%;
+    height: 300px;
+    border: 0;
+  }
+
+  @media (min-width: 768px) {
+    .contact-band {
+      padding-bottom: 80px;
+    }
+
+    .contact-band__title {
+      font-size: 70px;
+    }
+
+    .contact-band--page .section-label {
+      font-size: 18px;
+    }
+
+    .contact-band__row {
+      grid-template-columns: 105px 461px minmax(0, 1fr);
+      align-items: start;
+      margin-top: 60px;
+    }
+
+    .contact-band--page .contact-band__row {
+      margin-top: 15px;
+    }
+
+    .contact-band__social {
+      flex-direction: column;
+      gap: 50px;
+      min-height: 444px;
+      margin: 55px 0 80px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.07);
+    }
+
+    .contact-band__social :global(svg) {
+      width: 27px;
+      height: 27px;
+    }
+
+    .contact-band__card {
+      margin: 0;
+      min-height: 600px;
+      padding: 50px;
+      text-align: left;
+    }
+
+    .contact-band__card-title {
+      margin-bottom: 40px;
+      font-size: 68px;
+    }
+
+    .contact-band__card ul {
+      gap: 50px;
+    }
+
+    .contact-band__card li {
+      grid-template-columns: 64px 1fr;
+      justify-items: start;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .contact-band__icon {
+      width: 64px;
+      height: 64px;
+    }
+
+    .contact-band__icon :global(svg) {
+      width: 22px;
+      height: 22px;
+    }
+
+    .contact-band__map {
+      margin: 70px 0 0;
+    }
+
+    .contact-band__map iframe {
+      height: 420px;
+    }
+  }
+</style>

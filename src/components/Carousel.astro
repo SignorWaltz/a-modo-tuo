@@ -1,0 +1,131 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  images: string[];
+  alt: string;
+  perView?: number;
+  perViewMobile?: number;
+  gap?: number;
+  height?: string;
+  heightMobile?: string;
+  autoplay?: number;
+  arrows?: boolean;
+  class?: string;
+}
+
+const {
+  images,
+  alt,
+  perView = 2,
+  perViewMobile = 1,
+  gap = 20,
+  height = "390px",
+  heightMobile = height,
+  autoplay = 5000,
+  arrows = false,
+  class: className,
+} = Astro.props;
+
+const slides = [...images, ...images];
+---
+
+<div
+  class:list={["carousel", className]}
+  data-carousel-auto
+  data-autoplay={autoplay}
+  style={`--per-view: ${perView}; --per-view-mobile: ${perViewMobile}; --gap: ${gap}px; --slide-h: ${height}; --slide-h-mobile: ${heightMobile}`}
+>
+  <div class="carousel__viewport">
+    <div class="carousel__track" data-carousel-auto-track data-count={images.length}>
+      {
+        slides.map((src, index) => (
+          <figure class="carousel__slide" aria-hidden={index >= images.length ? "true" : undefined}>
+            <img src={src} alt={index < images.length ? `${alt} ${index + 1}` : ""} loading="lazy" />
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+  {
+    arrows && (
+      <>
+        <button class="carousel__nav carousel__nav--prev" type="button" aria-label="Slide precedente" data-carousel-auto-prev>
+          <Icon name="chevron-left" />
+        </button>
+        <button class="carousel__nav carousel__nav--next" type="button" aria-label="Slide successiva" data-carousel-auto-next>
+          <Icon name="chevron-right" />
+        </button>
+      </>
+    )
+  }
+</div>
+
+<style>
+  .carousel {
+    position: relative;
+    min-width: 0;
+  }
+
+  .carousel__viewport {
+    overflow: hidden;
+  }
+
+  .carousel__track {
+    display: flex;
+    gap: var(--gap);
+    transition: transform 0.5s ease;
+  }
+
+  .carousel__slide {
+    flex: 0 0 calc((100% - var(--gap) * (var(--per-view-mobile) - 1)) / var(--per-view-mobile));
+    margin: 0;
+  }
+
+  .carousel__slide img {
+    display: block;
+    width: 100%;
+    height: var(--slide-h-mobile);
+    object-fit: cover;
+    border-radius: 7px;
+  }
+
+  .carousel__nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transform: translateY(-50%);
+  }
+
+  .carousel__nav :global(svg) {
+    width: 25px;
+    height: 25px;
+  }
+
+  .carousel__nav--prev {
+    left: 4px;
+  }
+
+  .carousel__nav--next {
+    right: 4px;
+  }
+
+  @media (min-width: 768px) {
+    .carousel__slide {
+      flex-basis: calc((100% - var(--gap) * (var(--per-view) - 1)) / var(--per-view));
+    }
+
+    .carousel__slide img {
+      height: var(--slide-h);
+    }
+  }
+</style>

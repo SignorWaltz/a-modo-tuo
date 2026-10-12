@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import ContactMapBand from "../components/ContactMapBand.astro";
+import { contactsPage } from "../content/galleries";
+---
+
+<BaseLayout
+  title={contactsPage.title}
+  description={contactsPage.description}
+  showSharedSections={false}
+  showContactBand={false}
+>
+  <PageHero title={contactsPage.title} />
+  <ContactMapBand variant="page" />
+</BaseLayout>

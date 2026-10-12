@@ -1,0 +1,290 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../content/site";
+
+const currentPath = Astro.url.pathname;
+const tel = `tel:${site.phone.replace(/\s/g, "")}`;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" || currentPath === "" : currentPath.startsWith(href);
+---
+
+<header class="site-header" data-site-header>
+  <div class="site-header__contacts">
+    <ul class="site-header__contact-list">
+      <li class="site-header__desktop-only">
+        <a href={tel}><Icon name="phone" />{site.phone}</a>
+      </li>
+      <li class="site-header__desktop-only">
+        <a href={`mailto:${site.email}`}><Icon name="envelope" />{site.email}</a>
+      </li>
+      <li>
+        <span><Icon name="map-marker" /><span class="site-header__desktop-only">{site.address}</span></span>
+      </li>
+    </ul>
+    <ul class="site-header__social">
+      <li>
+        <a href={site.social.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"><Icon name="facebook" /></a>
+      </li>
+      <li>
+        <a href={site.social.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><Icon name="instagram" /></a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="site-header__main">
+    <button
+      class="site-header__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      data-nav-toggle
+    >
+      <span class="sr-only">Apri menu</span>
+      <Icon name="bars" />
+    </button>
+
+    <a class="site-header__brand" href="/">
+      <img src={site.logo} alt={site.name} width="190" height="114" />
+    </a>
+
+    <nav class="site-header__nav site-header__nav--desktop" aria-label="Navigazione principale">
+      <ul>
+        {
+          site.nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a class="site-header__phone" href={tel} aria-label="Telefono">
+      <Icon name="phone" />
+    </a>
+  </div>
+
+  <nav class="site-header__nav site-header__nav--mobile" id="site-nav" data-site-nav aria-label="Menu mobile">
+    <ul>
+      {
+        site.nav.map((item) => (
+          <li>
+            <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+    z-index: 40;
+    background: var(--color-white);
+  }
+
+  .site-header__contacts {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 58px;
+    padding-inline: 20px;
+    background: var(--color-black);
+    color: var(--color-white);
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  .site-header__contact-list,
+  .site-header__social {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .site-header__social {
+    gap: 14px;
+  }
+
+  .site-header__contact-list a,
+  .site-header__contact-list span {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .site-header__contact-list :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .site-header__social a {
+    display: grid;
+    place-items: center;
+  }
+
+  .site-header__social :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .site-header__desktop-only {
+    display: none !important;
+  }
+
+  .site-header__main {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    min-height: 160px;
+    padding-inline: 30px;
+  }
+
+  .site-header__toggle {
+    justify-self: start;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-black);
+    cursor: pointer;
+  }
+
+  .site-header__toggle :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+
+  .site-header__brand img {
+    width: 170px;
+    height: auto;
+  }
+
+  .site-header__nav--desktop {
+    display: none;
+  }
+
+  .site-header__nav ul {
+    display: flex;
+    gap: 0;
+  }
+
+  .site-header__nav--desktop a {
+    display: block;
+    padding: 13px 20px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    text-transform: uppercase;
+    color: var(--color-black);
+  }
+
+  .site-header__nav--desktop a:hover {
+    color: var(--color-gray-muted);
+  }
+
+  .site-header__phone {
+    justify-self: end;
+    display: grid;
+    place-items: center;
+    color: var(--color-black);
+  }
+
+  .site-header__phone :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+
+  .site-header__nav--mobile {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .site-header__nav--mobile.is-open {
+    display: block;
+  }
+
+  .site-header__nav--mobile ul {
+    flex-direction: column;
+  }
+
+  .site-header__nav--mobile a {
+    display: block;
+    padding: 13px 20px;
+    font-family: "Roboto", var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: #33373d;
+  }
+
+  .site-header__nav--mobile a[aria-current="page"],
+  .site-header__nav--mobile a:hover {
+    background: #55595c;
+    color: var(--color-white);
+  }
+
+  @media (min-width: 1025px) {
+    .site-header__desktop-only {
+      display: inline-flex !important;
+    }
+
+    .site-header__contacts {
+      min-height: 60px;
+    }
+
+    .site-header__main {
+      grid-template-columns: 1fr auto 1fr;
+      min-height: 166px;
+      padding-inline: 98px 25px;
+    }
+
+    .site-header__toggle {
+      display: none;
+    }
+
+    .site-header__brand {
+      grid-column: 1;
+      grid-row: 1;
+      justify-self: start;
+    }
+
+    .site-header__brand img {
+      width: 185px;
+    }
+
+    .site-header__nav--desktop {
+      grid-column: 2;
+      grid-row: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .site-header__phone {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .site-header__phone :global(svg) {
+      width: 28px;
+      height: 28px;
+    }
+
+    .site-header__nav--mobile {
+      display: none !important;
+    }
+  }
+</style>

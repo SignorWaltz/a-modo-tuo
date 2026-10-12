@@ -1,0 +1,140 @@
+---
+import Carousel from "./Carousel.astro";
+import { home } from "../content/home";
+
+const { hero } = home;
+---
+
+<section class="hero" style={`--hero-bg: url(${hero.background})`}>
+  <div class="hero__layout">
+    <div class="hero__card">
+      <h5 class="hero__eyebrow">{hero.eyebrow}</h5>
+      <h1 class="hero__title">{hero.titleLine1}</h1>
+      <h5 class="hero__subtitle">{hero.titleLine2}</h5>
+      <a class="btn hero__cta" href={hero.ctaHref} data-open-discount>{hero.ctaLabel}</a>
+    </div>
+
+    <Carousel
+      class="hero__carousel"
+      images={hero.slides}
+      alt="Il negozio A Modo Tuo"
+      perView={2.75}
+      perViewMobile={2}
+      height="380px"
+      heightMobile="220px"
+      autoplay={5000}
+      arrows
+    />
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: 20px 60px;
+    color: var(--color-white);
+    background: #fff var(--hero-bg) center / cover no-repeat;
+  }
+
+  .hero__layout {
+    display: grid;
+    gap: 20px;
+    padding-inline: 20px;
+  }
+
+  .hero__card {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    padding: 15px 20px 20px;
+    background: #000000a3;
+    text-align: center;
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 200;
+    letter-spacing: 1.2px;
+    line-height: 1;
+    text-transform: capitalize;
+  }
+
+  .hero__title,
+  .hero__subtitle {
+    font-family: var(--font-display);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .hero__title {
+    font-size: 32px;
+  }
+
+  .hero__subtitle {
+    margin-top: -8px;
+    font-size: 19px;
+  }
+
+  .hero__cta {
+    margin-top: 8px;
+    padding: 20px 30px;
+    font-size: 12px;
+  }
+
+  .hero :global(.hero__carousel) {
+    padding-inline: 15px;
+  }
+
+  @media (min-width: 1025px) {
+    .hero {
+      padding-block: 150px;
+    }
+
+    .hero__layout {
+      grid-template-columns: 622px minmax(0, 1fr);
+      align-items: center;
+      gap: 0;
+      padding-inline: 98px 0;
+    }
+
+    .hero__card {
+      justify-items: start;
+      gap: 14px;
+      padding: 15px 70px 25px;
+      text-align: left;
+    }
+
+    .hero__eyebrow {
+      font-size: 48px;
+      letter-spacing: 1.5px;
+    }
+
+    .hero__title,
+    .hero__subtitle {
+      letter-spacing: 4.8px;
+    }
+
+    .hero__title {
+      font-size: 50px;
+    }
+
+    .hero__subtitle {
+      margin-top: -6px;
+      font-size: 47px;
+    }
+
+    .hero__cta {
+      margin-top: 6px;
+      padding: 20px 33px;
+      font-size: 18px;
+    }
+
+    .hero :global(.hero__carousel) {
+      padding-inline: 0;
+    }
+  }
+</style>

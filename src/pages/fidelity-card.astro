@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { fidelityPage } from "../content/galleries";
+---
+
+<BaseLayout
+  title={fidelityPage.title}
+  description={fidelityPage.intro}
+  showSharedSections={false}
+  showContactBand={false}
+>
+  <PageHero
+    label={fidelityPage.label}
+    title={fidelityPage.title}
+    intro={fidelityPage.intro}
+    image={fidelityPage.image}
+  />
+
+  <section class="fidelity">
+    <div class="fidelity__card container">
+      <h2 class="display-title">{fidelityPage.formTitle}</h2>
+      <form data-local-form data-success="Richiesta di esempio inviata. Ti contatteremo con i dettagli della Fidelity Card.">
+        <div class="form-field">
+          <label for="fidelity-name">Nome e cognome</label>
+          <input id="fidelity-name" name="name" type="text" required />
+        </div>
+        <div class="form-field">
+          <label for="fidelity-email">Email</label>
+          <input id="fidelity-email" name="email" type="email" required />
+        </div>
+        <div class="form-field">
+          <label for="fidelity-phone">Telefono</label>
+          <input id="fidelity-phone" name="phone" type="tel" />
+        </div>
+        <button class="btn btn--dark" type="submit">Invia richiesta</button>
+        <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .fidelity {
+    padding-block: 3.5rem 4rem;
+  }
+
+  .fidelity__card {
+    max-width: 560px;
+  }
+
+  .fidelity__card .display-title {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    letter-spacing: 0.08em;
+  }
+</style>

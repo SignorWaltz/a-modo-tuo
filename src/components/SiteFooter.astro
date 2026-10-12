@@ -1,0 +1,182 @@
+---
+import Icon from "./Icon.astro";
+import { site } from "../content/site";
+import { home } from "../content/home";
+---
+
+<footer class="site-footer">
+  <div class="site-footer__grid" style={`--footer-bg: url(${home.fabric})`}>
+    <section>
+      <h2>Contatti</h2>
+      <ul class="site-footer__list">
+        <li>
+          <Icon name="map-marker" />
+          <span>{site.address}</span>
+        </li>
+        <li>
+          <Icon name="phone" />
+          <a href={`tel:${site.phone.replace(/\s/g, "")}`}>+39 {site.phoneDisplay}</a>
+        </li>
+        <li>
+          <Icon name="envelope-open" />
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Orari</h2>
+      <p class="site-footer__hours">
+        {
+          site.hours.map((row, index) => (
+            <>
+              {index > 0 && <br />}
+              {row.day} {row.time}
+            </>
+          ))
+        }
+      </p>
+    </section>
+
+    <section>
+      <h2>Social</h2>
+      <div class="site-footer__social">
+        <a href={site.social.facebook} target="_blank" rel="noreferrer" aria-label="Facebook"><Icon name="facebook" /></a>
+        <a href={site.social.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><Icon name="instagram" /></a>
+      </div>
+    </section>
+  </div>
+
+  <div class="site-footer__bottom">
+    <p>
+      Copyright {site.year} – {site.legalName} – Via XIII Martiri 107 San Donà Di Piave (VE) – 30027 – {site.vat}
+      <br />
+      {
+        site.footerLinks.map((link, index) => (
+          <>
+            {index > 0 && " – "}
+            <a href={link.href}>{link.label}</a>
+          </>
+        ))
+      }
+    </p>
+    <p class="site-footer__credit">
+      Sito web sviluppato da <a href={site.credit.href} target="_blank" rel="noreferrer">{site.credit.label}</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    color: var(--color-white);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    gap: 30px;
+    padding: 25px 20px 10px;
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      var(--footer-bg) center / cover;
+    text-align: center;
+  }
+
+  .site-footer h2 {
+    margin-bottom: 20px;
+    font-size: 25px;
+    font-weight: 600;
+    color: var(--color-white);
+  }
+
+  .site-footer__list {
+    display: inline-grid;
+    gap: 23px;
+    justify-items: center;
+    font-size: 13px;
+  }
+
+  .site-footer__list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .site-footer__list :global(svg) {
+    flex: none;
+    width: 18px;
+    height: 18px;
+  }
+
+  .site-footer__hours {
+    margin: 0;
+    font-size: 12px;
+    line-height: 27px;
+  }
+
+  .site-footer__social {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .site-footer__social a {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-white);
+    color: var(--color-black);
+  }
+
+  .site-footer__social :global(svg) {
+    width: 24px;
+    height: 24px;
+  }
+
+  .site-footer__social a:hover {
+    opacity: 0.9;
+  }
+
+  .site-footer__bottom {
+    padding: 15px 20px 20px;
+    background: var(--color-black);
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+  }
+
+  .site-footer__bottom p {
+    margin: 0;
+  }
+
+  .site-footer__bottom a {
+    color: #b9b9b9;
+  }
+
+  .site-footer__bottom a:hover {
+    color: var(--color-white);
+  }
+
+  .site-footer__credit {
+    font-size: 10px;
+  }
+
+  @media (min-width: 768px) {
+    .site-footer__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      padding: 25px 20px 40px;
+    }
+
+    .site-footer__list {
+      justify-items: start;
+      gap: 23px;
+      font-size: 14px;
+    }
+
+    .site-footer__hours {
+      font-size: 16px;
+    }
+  }
+</style>

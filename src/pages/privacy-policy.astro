@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { legalPages } from "../content/legal";
+
+const page = legalPages.privacy;
+---
+
+<BaseLayout title={page.title} showSharedSections={false} showContactBand={false}>
+  <article class="legal container">
+    <h1 class="display-title">{page.title}</h1>
+    {page.body.map((paragraph) => <p>{paragraph}</p>)}
+  </article>
+</BaseLayout>
+
+<style>
+  .legal {
+    padding-block: 4rem 5rem;
+    max-width: 760px;
+  }
+
+  .legal .display-title {
+    margin-bottom: 1.5rem;
+    font-size: 2.4rem;
+    letter-spacing: 0.08em;
+  }
+
+  .legal p {
+    color: var(--color-gray);
+  }
+</style>

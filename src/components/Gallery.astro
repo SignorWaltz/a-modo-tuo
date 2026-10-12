@@ -1,0 +1,58 @@
+---
+import type { GalleryItem } from "../content/galleries";
+
+interface Props {
+  items: GalleryItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="gallery">
+  <div class="gallery__grid container">
+    {
+      items.map((item) => (
+        <a class="gallery__item" href={item.full} target="_blank" rel="noreferrer">
+          <img src={item.src} alt={item.alt} loading="lazy" width="300" height="300" />
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .gallery {
+    padding-block: 20px 30px;
+  }
+
+  .gallery__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .gallery__item {
+    flex: 0 0 calc((100% - 16px) / 2);
+    padding: 5px;
+    background: var(--color-white);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .gallery__item img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+
+  .gallery__item:hover img {
+    opacity: 0.85;
+  }
+
+  @media (min-width: 768px) {
+    .gallery__item {
+      flex-basis: 205px;
+    }
+  }
+</style>

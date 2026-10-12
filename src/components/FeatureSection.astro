@@ -1,0 +1,135 @@
+---
+import Carousel from "./Carousel.astro";
+import { site } from "../content/site";
+
+interface Props {
+  label: string;
+  title: string;
+  textHtml: string;
+  ctaLabel: string;
+  ctaHref: string;
+  images: string[];
+  reverse?: boolean;
+}
+
+const { label, title, textHtml, ctaLabel, ctaHref, images, reverse = false } = Astro.props;
+---
+
+<section class:list={["feature", reverse && "feature--reverse"]}>
+  <div class="feature__inner container">
+    <div class="feature__content">
+      <img class="feature__logo" src={site.logoMark} alt="" width="80" height="82" />
+      <h6 class="section-label">{label}</h6>
+      <h2 class="section-title">{title}</h2>
+      <p class="feature__text" set:html={textHtml} />
+      <span class="divider feature__divider"></span>
+      <a class="btn feature__cta" href={ctaHref}>{ctaLabel}</a>
+    </div>
+    <Carousel
+      class="feature__media"
+      images={images}
+      alt={title}
+      perView={2}
+      perViewMobile={1.15}
+      height="548px"
+      heightMobile="495px"
+      autoplay={2000}
+    />
+  </div>
+</section>
+
+<style>
+  .feature {
+    padding-block: 50px 0;
+    background: var(--color-white);
+  }
+
+  .feature--reverse {
+    padding-block: 70px 100px;
+  }
+
+  .feature__inner {
+    display: grid;
+    gap: 30px;
+  }
+
+  .feature__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .feature--reverse .feature__content {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .feature__logo {
+    width: 80px;
+    height: auto;
+    margin-bottom: 8px;
+  }
+
+  .feature__text {
+    max-width: 330px;
+    margin: 4px 0 0;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .feature__divider {
+    margin-top: 8px;
+  }
+
+  .feature__cta {
+    margin-top: 30px;
+  }
+
+  @media (min-width: 768px) {
+    .feature__text {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .feature__inner {
+      grid-template-columns: 388px minmax(0, 1fr);
+      align-items: center;
+      gap: 0;
+    }
+
+    .feature--reverse .feature__inner {
+      grid-template-columns: minmax(0, 1fr) 388px;
+    }
+
+    .feature--reverse :global(.feature__media) {
+      order: -1;
+    }
+
+    .feature__logo {
+      width: 52px;
+    }
+
+    .feature__text {
+      max-width: 330px;
+    }
+
+    .feature__divider {
+      align-self: flex-end;
+      margin-top: 22px;
+    }
+
+    .feature--reverse .feature__divider {
+      align-self: flex-start;
+    }
+
+    .feature__cta {
+      margin-top: 32px;
+    }
+
+    .feature--reverse .feature__content {
+      padding-left: 20px;
+    }
+  }
+</style>

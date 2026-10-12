@@ -1,0 +1,173 @@
+---
+import Icon from "./Icon.astro";
+
+const categories = [
+  { id: "functional", label: "Funzionale", locked: true },
+  { id: "preferences", label: "Preferenze" },
+  { id: "statistics", label: "Statistiche" },
+  { id: "marketing", label: "Marketing" },
+];
+---
+
+<div class="cookie-banner" data-cookie-banner hidden role="dialog" aria-labelledby="cookie-title">
+  <div class="cookie-banner__head">
+    <p class="cookie-banner__title" id="cookie-title">Gestisci Consenso Cookie</p>
+    <button class="cookie-banner__close" type="button" aria-label="Chiudi" data-cookie-choice="deny">
+      <Icon name="close" />
+    </button>
+  </div>
+  <p class="cookie-banner__text">
+    Per fornire le migliori esperienze, utilizziamo tecnologie come i cookie per memorizzare e/o accedere alle
+    informazioni del dispositivo. Il consenso a queste tecnologie ci permetterà di elaborare dati come il comportamento
+    di navigazione o ID unici su questo sito. Non acconsentire o ritirare il consenso può influire negativamente su
+    alcune caratteristiche e funzioni.
+  </p>
+  <ul class="cookie-banner__categories" data-cookie-categories hidden>
+    {
+      categories.map((category) => (
+        <li>
+          <label>
+            <span>{category.label}</span>
+            {category.locked ? (
+              <em>Sempre attivo</em>
+            ) : (
+              <input type="checkbox" name={category.id} />
+            )}
+          </label>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="cookie-banner__buttons">
+    <button type="button" class="cookie-banner__btn cookie-banner__btn--accept" data-cookie-choice="accept">Accetta</button>
+    <button type="button" class="cookie-banner__btn" data-cookie-choice="deny">Nega</button>
+    <button type="button" class="cookie-banner__btn" data-cookie-preferences>Visualizza le preferenze</button>
+    <button type="button" class="cookie-banner__btn" data-cookie-choice="save" hidden>Salva preferenze</button>
+  </div>
+  <p class="cookie-banner__links">
+    <a href="/cookie-policy-ue/">Cookie Policy</a>
+    <a href="/privacy-policy/">Privacy Policy</a>
+  </p>
+</div>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 70;
+    width: min(calc(100% - 20px), 526px);
+    padding: 15px 20px;
+    border-radius: 12px;
+    background: var(--color-white);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+    color: #222;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .cookie-banner[hidden] {
+    display: none;
+  }
+
+  .cookie-banner__head {
+    position: relative;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .cookie-banner__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .cookie-banner__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .cookie-banner__close :global(svg) {
+    width: 14px;
+    height: 14px;
+  }
+
+  .cookie-banner__text {
+    margin: 0 0 12px;
+  }
+
+  .cookie-banner__categories {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .cookie-banner__categories[hidden] {
+    display: none;
+  }
+
+  .cookie-banner__categories label {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: #f2f2f2;
+    border-radius: 5px;
+    font-weight: 500;
+  }
+
+  .cookie-banner__categories em {
+    color: #1e73be;
+    font-style: normal;
+  }
+
+  .cookie-banner__buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .cookie-banner__btn {
+    min-height: 45px;
+    padding: 10px;
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    background: #f9f9f9;
+    color: #222;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .cookie-banner__btn[hidden] {
+    display: none;
+  }
+
+  .cookie-banner__btn--accept {
+    border-color: #000;
+    background: #000;
+    color: #fff;
+  }
+
+  .cookie-banner__links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0 0;
+  }
+
+  .cookie-banner__links a {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .cookie-banner__buttons {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

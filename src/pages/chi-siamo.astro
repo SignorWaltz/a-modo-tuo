@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site } from "../content/site";
+---
+
+<BaseLayout
+  title="Chi siamo"
+  description={`Chi siamo — ${site.name}, abbigliamento donna a ${site.city}.`}
+  showSharedSections={false}
+  showContactBand={true}
+>
+  <PageHero
+    label="A modo tuo"
+    title="Chi siamo"
+    intro="Un negozio di abbigliamento donna a San Donà di Piave: selezione Made in Italy, consiglio personalizzato e uno stile a modo tuo."
+    image="/images/client/photos/01112023-DSC03749.jpg"
+  />
+
+  <section class="about container">
+    <p>
+      {site.name} nasce dalla passione di Sabrina Ferrand per la moda italiana e per l’esperienza di
+      acquisto in negozio. Ogni capo è scelto con attenzione a qualità, vestibilità e personalità.
+    </p>
+    <p>
+      Che tu cerchi un look da lavoro, un outfit per un’occasione speciale o pezzi quotidiani, ti
+      accompagniamo nella scelta con consigli chiari e un’atmosfera accogliente.
+    </p>
+    <a class="btn" href="/contatti/">Vieni a trovarci</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .about {
+    max-width: 720px;
+    padding-block: 3rem 4.5rem;
+  }
+
+  .about p {
+    color: #444;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .about .btn {
+    margin-top: 0.5rem;
+  }
+</style>

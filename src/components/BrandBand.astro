@@ -1,0 +1,66 @@
+---
+import { home } from "../content/home";
+import { site } from "../content/site";
+
+const { brandBand } = home;
+---
+
+<section class="brand-band" style={`--band-image: url(${brandBand.image})`}>
+  <div class="brand-band__content container">
+    <span class="section-label">{brandBand.label}</span>
+    <h2>{brandBand.title}</h2>
+    <div class="brand-band__social">
+      <a href={site.social.facebook} target="_blank" rel="noreferrer" aria-label="Facebook">f</a>
+      <a href={site.social.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">◎</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .brand-band {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 360px;
+    padding-block: 4.5rem;
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      var(--band-image) center / cover no-repeat;
+    color: var(--color-white);
+    text-align: center;
+  }
+
+  .brand-band .section-label {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .brand-band h2 {
+    margin: 0.35rem 0 1.4rem;
+    font-size: clamp(2.4rem, 6vw, 4.35rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .brand-band__social {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .brand-band__social a {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    background: var(--color-white);
+    color: var(--color-black);
+    font-size: 0.9rem;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  .brand-band__social a:hover {
+    background: var(--color-black);
+    color: var(--color-white);
+  }
+</style>

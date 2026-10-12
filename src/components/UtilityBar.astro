@@ -1,0 +1,47 @@
+---
+import { site } from "../content/site";
+---
+
+<div class="utility-bar" aria-label="Informazioni utili" data-utility-bar>
+  <div class="utility-bar__viewport">
+    {
+      site.utilityBar.map((item, index) => (
+        <p class:list={["utility-bar__item", index === 0 && "is-active"]} data-utility-item>
+          {item}
+        </p>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .utility-bar {
+    background: var(--color-white);
+    color: var(--color-black);
+  }
+
+  .utility-bar__viewport {
+    position: relative;
+    height: 44px;
+    overflow: hidden;
+  }
+
+  .utility-bar__item {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding-inline: 1rem;
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+
+  .utility-bar__item.is-active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import PageIntro from "../components/PageIntro.astro";
+import Gallery from "../components/Gallery.astro";
+import { outfitGallery, outfitPage } from "../content/galleries";
+---
+
+<BaseLayout title={outfitPage.title} description={outfitPage.description}>
+  <PageHero title={outfitPage.title} />
+  <PageIntro {...outfitPage.intro} />
+  <Gallery items={outfitGallery} />
+</BaseLayout>

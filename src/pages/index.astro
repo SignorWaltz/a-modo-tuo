@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureSection from "../components/FeatureSection.astro";
+import { site } from "../content/site";
+import { home } from "../content/home";
+---
+
+<BaseLayout title={`${site.name} - Abbigliamento`} description={site.description}>
+  <Hero />
+  <FeatureSection
+    label={home.donna.label}
+    title={home.donna.title}
+    textHtml={home.donna.textHtml}
+    ctaLabel={home.donna.ctaLabel}
+    ctaHref={home.donna.ctaHref}
+    images={home.donna.images}
+  />
+  <FeatureSection
+    label={home.outfit.label}
+    title={home.outfit.title}
+    textHtml={home.outfit.textHtml}
+    ctaLabel={home.outfit.ctaLabel}
+    ctaHref={home.outfit.ctaHref}
+    images={home.outfit.images}
+    reverse
+  />
+</BaseLayout>
