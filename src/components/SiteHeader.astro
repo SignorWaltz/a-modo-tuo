@@ -1,11 +1,18 @@
 ---
 import Icon from "./Icon.astro";
 import { site } from "../content/site";
+import { url } from "../lib/url";
 
 const currentPath = Astro.url.pathname;
+const homeHref = url("/");
 const tel = `tel:${site.phone.replace(/\s/g, "")}`;
-const isActive = (href: string) =>
-  href === "/" ? currentPath === "/" || currentPath === "" : currentPath.startsWith(href);
+const isActive = (href: string) => {
+  const base = import.meta.env.BASE_URL || "/";
+  if (href === base || href === homeHref) {
+    return currentPath === base || currentPath === "/" || currentPath === "";
+  }
+  return currentPath.startsWith(href);
+};
 ---
 
 <header class="site-header" data-site-header>
@@ -43,7 +50,7 @@ const isActive = (href: string) =>
       <Icon name="bars" />
     </button>
 
-    <a class="site-header__brand" href="/">
+    <a class="site-header__brand" href={homeHref}>
       <img src={site.logo} alt={site.name} width="190" height="114" />
     </a>
 

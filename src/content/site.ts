@@ -1,3 +1,5 @@
+import { url } from "../lib/url";
+
 export const site = {
   name: "A Modo Tuo",
   legalName: "A Modo Tuo di Sabrina Ferrand",
@@ -13,10 +15,10 @@ export const site = {
   city: "San Donà di Piave (VE)",
   vat: "P.IVA 04472690272",
   year: 2023,
-  logo: "/images/client/logo/Logo-A-Modo-Tuo-1.png",
-  logoFull: "/images/client/logo/Logo-A-Modo-Tuo.png",
-  logoMark: "/images/client/logo/Logo-A-Modo-Tuo-tagliato.png",
-  favicon: "/images/client/logo/cropped-Logo-A-Modo-Tuo-tagliato.png",
+  logo: url("/images/client/logo/Logo-A-Modo-Tuo-1.png"),
+  logoFull: url("/images/client/logo/Logo-A-Modo-Tuo.png"),
+  logoMark: url("/images/client/logo/Logo-A-Modo-Tuo-tagliato.png"),
+  favicon: url("/images/client/logo/cropped-Logo-A-Modo-Tuo-tagliato.png"),
   social: {
     facebook: "https://www.facebook.com/amodotuostore/",
     instagram: "https://www.instagram.com/amodotuostore/?hl=it",
@@ -37,19 +39,19 @@ export const site = {
     "Made In Italy",
   ],
   nav: [
-    { label: "Home", href: "/" },
-    { label: "Donna", href: "/donna/" },
-    { label: "Outfit", href: "/outfit/" },
-    { label: "Contatti", href: "/contatti/" },
+    { label: "Home", href: url("/") },
+    { label: "Donna", href: url("/donna/") },
+    { label: "Outfit", href: url("/outfit/") },
+    { label: "Contatti", href: url("/contatti/") },
   ],
   credit: {
     label: "Orezero Web Agency",
     href: "https://orezero.it/",
   },
   footerLinks: [
-    { label: "Privacy Policy", href: "/privacy-policy/" },
-    { label: "Cookies Policy", href: "/cookie-policy-ue/" },
-    { label: "Termini e Condizioni", href: "/termini-e-condizioni/" },
-    { label: "Regolamento Fidelity Card", href: "/regolamento-fidelity-card/" },
+    { label: "Privacy Policy", href: url("/privacy-policy/") },
+    { label: "Cookies Policy", href: url("/cookie-policy-ue/") },
+    { label: "Termini e Condizioni", href: url("/termini-e-condizioni/") },
+    { label: "Regolamento Fidelity Card", href: url("/regolamento-fidelity-card/") },
   ],
 };

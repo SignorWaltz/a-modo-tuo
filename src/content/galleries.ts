@@ -1,10 +1,12 @@
+import { url } from "../lib/url";
+
 export type GalleryItem = {
   src: string;
   full: string;
   alt: string;
 };
 
-const photos = "/images/client/photos";
+const photos = url("/images/client/photos").replace(/\/$/, "");
 
 const toItems = (pairs: [thumb: string, full: string][], alt: string): GalleryItem[] =>
   pairs.map(([thumb, full], i) => ({

@@ -1,4 +1,6 @@
-const photos = "/images/client/photos";
+import { url } from "../lib/url";
+
+const photos = url("/images/client/photos").replace(/\/$/, "");
 
 export const home = {
   hero: {
@@ -20,7 +22,7 @@ export const home = {
     textHtml:
       "Il nostro negozio di abbigliamento donna offre una vasta selezione di capi realizzati con passione e dedizione, con l’obiettivo di far risplendere la bellezza di ogni donna, tutto rigorosamente <strong>Made in Italy</strong>.",
     ctaLabel: "Scopri di più",
-    ctaHref: "/donna/",
+    ctaHref: url("/donna/"),
     images: [
       `${photos}/01112023-DSC03664.jpg`,
       `${photos}/01112023-DSC03673.jpg`,
@@ -33,7 +35,7 @@ export const home = {
     textHtml:
       "Tantissimi abbinamenti scelti con cura per rendere lo shopping un’esperienza piacevole e senza stress.<br />Che tu stia cercando l’abito perfetto per un’occasione speciale per il lavoro o un look rilassato per il tempo libero.<br />Siamo qui per aiutarti a trovare ciò che meglio si adatta al tuo stile e alle tue esigenze.",
     ctaLabel: "Scopri di più",
-    ctaHref: "/outfit/",
+    ctaHref: url("/outfit/"),
     images: [
       `${photos}/387821675_17978822642600482_6601575200855695947_n.jpg`,
       `${photos}/282006109_324807766471457_3955117124687327101_n.jpg`,
